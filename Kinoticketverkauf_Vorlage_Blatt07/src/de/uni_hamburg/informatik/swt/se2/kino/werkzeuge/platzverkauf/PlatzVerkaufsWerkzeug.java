@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Platz;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Kinosaal;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
+import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.Observable;
 
 /**
  * Mit diesem Werkzeug können Plätze verkauft und storniert werden. Es arbeitet
@@ -21,7 +22,7 @@ import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
  * @author SE2-Team
  * @version SoSe 2012
  */
-public class PlatzVerkaufsWerkzeug
+public class PlatzVerkaufsWerkzeug extends Observable
 {
     private PlatzVerkaufsWerkzeugUI _ui;
 
@@ -96,6 +97,8 @@ public class PlatzVerkaufsWerkzeug
         _ui.getVerkaufenButton().setEnabled(istVerkaufenMoeglich(plaetze));
         _ui.getStornierenButton().setEnabled(istStornierenMoeglich(plaetze));
         aktualisierePreisanzeige(plaetze);
+        
+        update();
     }
 
     /**
@@ -175,6 +178,8 @@ public class PlatzVerkaufsWerkzeug
         Set<Platz> plaetze = _ui.getPlatzplan().getAusgewaehltePlaetze();
         vorstellung.verkaufePlaetze(plaetze);
         aktualisierePlatzplan();
+        
+        update();
     }
 
     /**

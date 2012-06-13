@@ -1,7 +1,7 @@
 SE2-Kino-Repository
 ===================
 _Ausgearbeitete Lösung von_
-* Fasselt, Markus
+* F., Markus
 * Förster, Julia
 * Meinecke, Annika T.
 * Möllers, Konstantin S. M.
