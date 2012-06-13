@@ -127,7 +127,16 @@ public class KassenWerkzeug implements Observer
 
 	@Override
 	public void handleChanges(Observable sender) {
-		// TODO Auto-generated method stub
+		// Änderungen am Datum
+		if (sender instanceof DatumAuswaehlWerkzeug)
+		{
+			setzeTagesplanFuerAusgewaehltesDatum();
+		}
 		
+		// Änderung der Vorstellung
+		else if (sender instanceof VorstellungAuswaehlWerkzeug)
+		{
+			_platzVerkaufsWerkzeug.setVorstellung(getAusgewaehlteVorstellung());
+		}
 	}
 }

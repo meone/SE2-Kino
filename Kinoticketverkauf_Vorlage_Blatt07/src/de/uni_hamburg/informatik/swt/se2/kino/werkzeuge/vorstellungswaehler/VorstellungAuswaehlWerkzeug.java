@@ -39,6 +39,7 @@ public class VorstellungAuswaehlWerkzeug extends Observable
      */
     private void vorstellungWurdeAusgewaehlt()
     {
+    	update();
     }
 
     /**

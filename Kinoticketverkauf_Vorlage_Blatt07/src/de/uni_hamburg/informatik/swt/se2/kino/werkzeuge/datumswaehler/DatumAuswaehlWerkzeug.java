@@ -40,6 +40,7 @@ public class DatumAuswaehlWerkzeug extends Observable
     {
         _ausgewaehltesDatum = _ausgewaehltesDatum.vorherigerTag();
         _ui.getDatumLabel().setText(_ausgewaehltesDatum.getFormatiertenString());
+        update();
     }
     
     /**
@@ -49,6 +50,7 @@ public class DatumAuswaehlWerkzeug extends Observable
     {
         _ausgewaehltesDatum = _ausgewaehltesDatum.naechsterTag();
         _ui.getDatumLabel().setText(_ausgewaehltesDatum.getFormatiertenString());
+        update();
     }
     
     /**
