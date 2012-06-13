@@ -125,8 +125,17 @@ public class KassenWerkzeug implements Observer
         return _vorstellungAuswaehlWerkzeug.getAusgewaehlteVorstellung();
     }
 
+    /**
+	 * Stellt Änderungen eines bestimmten Senders fest.
+	 * 
+	 * @param sender
+	 * 		Ein beobachtbares Objekt, welches eine Änderung durchgeführt hat.
+	 * @require sender != null
+	 */
 	@Override
 	public void handleChanges(Observable sender) {
+		assert sender != null : "Vorbedingung verletzt: sender ist keine Referenz auf ein Objekt!";
+		
 		// Änderungen am Datum
 		if (sender instanceof DatumAuswaehlWerkzeug)
 		{

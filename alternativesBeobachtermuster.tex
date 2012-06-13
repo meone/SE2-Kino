@@ -1,0 +1,35 @@
+\documentclass{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+ 
+\title{SE2-Kino}
+\author{
+ Markus {\sc Fasselt},
+ Julia {\sc F\"orster}, \\
+ Annika T. {\sc Meinecke} und 
+ Konstantin Sim. Mar. {\sc Möllers}
+}
+\begin{document}
+ 
+\maketitle
+\tableofcontents
+% ==============
+\section{Über}
+
+\section{Alternative Lösung für das Bebachtermuster}
+\begin{itemize}
+	\item Der {\tt handleChanges}-Methode zusätzlich einen {\tt 
+String} übergeben, welches dann die Art der Aktualisierung enthält.
+	\item Mehrere, verschiedene Update-Methode schreiben, die anders 
+gehandhabt werden.
+	\item Javas {\tt ActionListener} benutzen, statt eigener 
+Implementation.
+	\item Callback- oder Lambda-Methoden übergeben, die das 
+ausführen, was gewünscht ist.
+	\item Statt {\tt instanceof}-Prüfung besser eine direkte 
+Feldprüfung durchführen.
+\end{itemize}
+% ==============
+\end{document}
