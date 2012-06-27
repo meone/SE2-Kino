@@ -181,6 +181,7 @@ public class PlatzVerkaufsWerkzeug
         Set<Platz> plaetze = _ui.getPlatzplan().getAusgewaehltePlaetze();
         _bezahlwerkzeug = new BezahlWerkzeug(plaetze, _vorstellung); 
         erzeugeListenerFuerSubwerkzeug();
+        _bezahlwerkzeug.zeigeFenster();
     }
 
     /**

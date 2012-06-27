@@ -8,6 +8,7 @@ import de.uni_hamburg.informatik.swt.se2.kino.materialien.Kino;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Tagesplan;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.SubwerkzeugBeobachter;
+import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.bezahlen.BezahlWerkzeug;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.datumswaehler.DatumAuswaehlWerkzeug;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.platzverkauf.PlatzVerkaufsWerkzeug;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.vorstellungswaehler.VorstellungAuswaehlWerkzeug;
