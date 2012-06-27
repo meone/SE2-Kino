@@ -159,14 +159,7 @@ class BezahlWerkzeugUI
 	public void zeigeFenster() 
 	{
 		_dialog.pack();
-		
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); 
-		
-		// Position des JDialogs errechnen
-		int top = (screenSize.height - _dialog.getHeight()) / 2;
-		int left = (screenSize.width - _dialog.getWidth()) / 2; 
-		
-		_dialog.setLocation(left, top);
+		_dialog.setLocationRelativeTo(null);
 		_dialog.setModal(true);
 		_dialog.setVisible(true);
 		_dialog.setModal(false);
