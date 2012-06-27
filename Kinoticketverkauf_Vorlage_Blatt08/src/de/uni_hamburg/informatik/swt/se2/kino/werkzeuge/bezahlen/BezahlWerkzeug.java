@@ -1,12 +1,12 @@
 package de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.bezahlen;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.Set;
 
 
@@ -81,6 +81,14 @@ public class BezahlWerkzeug extends BeobachtbaresSubWerkzeug
 			}
 		});
 		
+		_ui.getBezahltTextField().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (_ui.getOkButton().isEnabled())
+					reagiereAufOkButton();
+			}
+		});
+		
         _ui.getOkButton().addActionListener(new ActionListener()
         {
             @Override
@@ -107,16 +115,23 @@ public class BezahlWerkzeug extends BeobachtbaresSubWerkzeug
 		});
     }
 
-
 	/**
 	 * Reagiert darauf, dass bezahlt wurde.
 	 */
 	private void reagiereAufPreisBezahlt()
 	{
-		_bezahlt = Integer.parseInt(_ui.getBezahltTextField().getText());
-		_restbetrag = _bezahlt - _gesammtpreis;
-		_ui.setRestbetrag(_restbetrag);	
-		_ui.getOkButton().setEnabled(_restbetrag >= 0);
+		try
+		{
+			_bezahlt = Integer.parseInt(_ui.getBezahltTextField().getText());
+			_restbetrag = _bezahlt - _gesammtpreis;
+			_ui.setRestbetrag(_restbetrag);	
+			_ui.getOkButton().setEnabled(_restbetrag >= 0);
+		}
+		catch (NumberFormatException nfe)
+		{
+			Toolkit.getDefaultToolkit().beep();
+			_ui.betragFehlerAnzeigen();
+		}
 	}
 	
 	/**

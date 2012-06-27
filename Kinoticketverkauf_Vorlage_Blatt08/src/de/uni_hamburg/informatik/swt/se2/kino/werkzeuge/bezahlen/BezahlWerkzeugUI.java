@@ -1,10 +1,8 @@
 package de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.bezahlen;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.text.NumberFormat;
 
 import javax.swing.JButton;
@@ -31,13 +29,17 @@ class BezahlWerkzeugUI
 
 	// Die Widgets, aus denen das UI sich zusammensetzt
 	private int _gesammtbetrag;
+	
 	private JDialog _dialog;
+	
 	private JButton _abbrechenButton;
 	private JButton _okButton;
+	
 	private JPanel _gesammtbetragPanel;
-	private JFormattedTextField _bezahltField;
-	private JTextField _restbetragField;
 	private JPanel _buttonPanel;
+	
+	private JTextField _restbetragField;
+	private JFormattedTextField _bezahltField;
 	
 	/**
 	 * Initialisiert die Oberfläche.
@@ -102,6 +104,14 @@ class BezahlWerkzeugUI
 		
 		return _buttonPanel;
 	}
+	
+	/**
+	 * Zeigt eine Fehlermeldung im Restbetragsfeld an.
+	 */
+	public void betragFehlerAnzeigen()
+	{
+		_restbetragField.setText("Betrag ungültig!");
+	}
 
 	/**
 	 * Gibt den Abbrechen-Button zurück.
@@ -122,6 +132,7 @@ class BezahlWerkzeugUI
 	{
 		return _okButton;
 	}
+	
 
 	/**
 	 * Gibt den Dialog zurück.
