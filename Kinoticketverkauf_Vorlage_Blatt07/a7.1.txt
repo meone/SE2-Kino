@@ -1,0 +1,19 @@
+=== Werkzeuge ===
+- KassenWerkzeug
+	- DatumAuswahlWerkzeug
+	- PlatzVerkaufsWerkzeug
+	- VorstellungsAuswaehlWerkzeug
+	- (KassenWerkzeugUI)
+- DatumAuswahlWerkzeug
+	- (DatumAuswahlWerkzeugUI)
+- PlatzVerkaufsWerkzeug
+	- (PlatzVerkaufsWerkzeugUI)
+- VorstellungsAuswaehlWerkzeug
+	- (VorstellungsAuswaehlWerkzeugUI)
+
+
+=== Informierung über Zuständsänderung ===
+PlatzVerkaufsWerkzeugUI									=> PlatzVerkaufsWerkzeug
+KassenWerkzeug.reagiereAufNeueVorstellungsWahl()		=> PlatzVerkaufsWerkzeug
+KassenWerkzeug.setzeTagesplanFuerAusgewaehltesDatum()	=> VorstellungsAuswahlWerkzeug.setVorstellung()
+KassenWerkzeug.getAusgewaehlteVorstellung()				=> VorstellungsAuswahlWerkzeug
