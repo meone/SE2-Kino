@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Platz;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Kinosaal;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
+import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.SubwerkzeugBeobachter;
+import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.bezahlen.BezahlWerkzeug;
 
 /**
  * Mit diesem Werkzeug können Plätze verkauft und storniert werden. Es arbeitet
@@ -23,10 +25,14 @@ import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
  */
 public class PlatzVerkaufsWerkzeug
 {
+	
     private PlatzVerkaufsWerkzeugUI _ui;
 
     // Die aktuelle Vorstellung, deren Plätze angezeigt werden. Kann null sein.
     private Vorstellung _vorstellung;
+
+    // Das Subwerkzeug
+	private BezahlWerkzeug _bezahlwerkzeug;
 
     /**
      * Initialisiert das PlatzVerkaufsWerkzeug.
@@ -168,16 +174,33 @@ public class PlatzVerkaufsWerkzeug
     }
 
     /**
-     * Verkauft die ausgewählten Plaetze.
+     * Erstellt das Subwerkzeug, durch das die Plaetze verkauft werden.
      */
     private void verkaufePlaetze()
     {
         Set<Platz> plaetze = _ui.getPlatzplan().getAusgewaehltePlaetze();
-        _vorstellung.verkaufePlaetze(plaetze);
-        aktualisierePlatzplan();
+        _bezahlwerkzeug = new BezahlWerkzeug(plaetze, _vorstellung); 
+        erzeugeListenerFuerSubwerkzeug();
     }
 
     /**
+     * Erzeugt und registriert die Beobachter, die die Subwerkzeuge beobachten.
+     */
+    private void erzeugeListenerFuerSubwerkzeug() 
+    {
+    	_bezahlwerkzeug
+        	.registriereBeobachter(new SubwerkzeugBeobachter()
+        {
+            @Override
+            public void informiereUeberAenderung()
+            {
+                aktualisierePlatzplan();
+            }
+        });
+    	
+	}
+
+	/**
      * Storniert die ausgewählten Plaetze.
      */
     private void stornierePlaetze()
