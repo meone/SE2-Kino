@@ -92,6 +92,16 @@ public class GeldbetragTest {
 	}
 	
 	@Test
+	public void testeFormatierung()
+	{
+		Geldbetrag foo = Geldbetrag.neuerGeldbetrag(1234, 12);
+		assertEquals("1234,12 €", foo.formatiere());
+		
+		foo = Geldbetrag.neuerGeldbetrag(1234, 2);
+		assertEquals("1234,02 €", foo.formatiere());
+	}
+	
+	@Test
 	public void testeStringInterpretation()
 	{
 		Geldbetrag foo = Geldbetrag.neuerGeldbetrag("€ 2400,42");

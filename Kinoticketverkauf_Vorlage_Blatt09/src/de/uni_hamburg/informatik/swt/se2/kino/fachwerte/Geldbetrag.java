@@ -146,6 +146,34 @@ public final class Geldbetrag {
 	 */
 	public String formatiere()
 	{
-		return getEuro() + "," + getCent() + " €";
+		if (getCent() < 10)
+			return getEuro() + ",0" + getCent() + " €";
+		else
+			return getEuro() + "," + getCent() + " €";
 	}
+	
+	@Override
+    public boolean equals(Object o)
+    {
+        boolean ergebnis = false;
+        if (o instanceof Geldbetrag)
+        {
+        	Geldbetrag betrag = (Geldbetrag) o;
+            ergebnis = ((betrag.getEuro() == this.getEuro()) 
+            		&& (betrag.getCent() == this.getCent()));
+        }
+        return ergebnis;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return _centbetrag;
+    }
+
+    @Override
+    public String toString()
+    {
+        return formatiere();
+    }
 }
