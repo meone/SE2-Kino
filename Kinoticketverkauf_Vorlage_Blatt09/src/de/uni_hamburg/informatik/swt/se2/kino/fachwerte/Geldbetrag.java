@@ -36,19 +36,48 @@ public final class Geldbetrag {
 	 * Erstellt einen neuen Geldbetrag.
 	 * 
 	 * @param euro
-	 * 		Der Euro-Anteil.
+	 * 		Der Euro-Anteil. Er gibt auch das Vorzeichen vor.
 	 * @param cent
-	 * 		Der Cent-Anteil.
+	 * 		Der Cent-Anteil. Er ist positiv.
 	 * @return
 	 * 		Ein Geldbetrag-Fachwert.
+	 * @ensure result != null
 	 */
 	public static Geldbetrag neuerGeldbetrag(int euro, int cent)
 	{
-		int gesamtCent = cent + euro * 100;
-		if (_werteListe.containsKey(gesamtCent))
-			return _werteListe.get(gesamtCent);
+		int gesamtCent;
+		if (euro < 0)
+			gesamtCent = euro * 100 - Math.abs(cent);
 		else
-			return _werteListe.put(gesamtCent, new Geldbetrag(gesamtCent));
+			gesamtCent = euro * 100 + Math.abs(cent);
+			
+		if (!_werteListe.containsKey(gesamtCent))
+			_werteListe.put(gesamtCent, new Geldbetrag(gesamtCent));
+		return _werteListe.get(gesamtCent);
+	}
+	
+	/**
+	 * Erstellt einen neuen Fachwert für einen Geldbetrag anhand eines Strings.
+	 * 
+	 * @param formatierterString
+	 * 		Ein währungsformatierter Text. Ein Euro-Zeichen kann am Anfang oder 
+	 * 		Ende stehen. Ein Vorzeichen ist möglich.
+	 * @return
+	 * 		Ein Fachwert für den Betrag.
+	 * @ensure result != null
+	 */
+	public static Geldbetrag neuerGeldbetrag(String formatierterString)
+	{
+		Pattern rePattern = Pattern.compile("^(€\\s*)?([+\\-]?\\s*\\d+)(,(\\d+))?(\\s*€)?$");
+		Matcher matcher = rePattern.matcher(formatierterString);
+		
+		if (!matcher.find())
+			throw new InvalidParameterException("Es wurde kein gültiger Geldbetrag eingegeben");
+		
+		int euro = Integer.parseInt(matcher.group(2));
+		int cent = Integer.parseInt(matcher.group(4));
+		
+		return neuerGeldbetrag(euro, cent);
 	}
 	
 	/**
@@ -64,7 +93,7 @@ public final class Geldbetrag {
 	 */
 	public int getCent()
 	{
-		return _centbetrag % 100;
+		return Math.abs(_centbetrag % 100);
 	}
 	
 	/**
@@ -74,6 +103,7 @@ public final class Geldbetrag {
 	 * 		Der zu addierende Betrag.
 	 * @return
 	 * 		Das Ergebnis.
+	 * @ensure result != null
 	 */
 	public Geldbetrag addiereBetrag(Geldbetrag betrag)
 	{
@@ -87,6 +117,7 @@ public final class Geldbetrag {
 	 * 		Der abzuziehende Betrag.
 	 * @return
 	 * 		Das Ergebnis.
+	 * @ensure result != null
 	 */
 	public Geldbetrag subtrahiereBetrag(Geldbetrag betrag)
 	{
@@ -100,6 +131,7 @@ public final class Geldbetrag {
 	 * 		Der Skalar, mit dem Multipliziert wird.
 	 * @return
 	 * 		Das Ergebnis.
+	 * @ensure result != null
 	 */
 	public Geldbetrag skaliere(int skalar)
 	{
@@ -116,19 +148,4 @@ public final class Geldbetrag {
 	{
 		return getEuro() + "," + getCent() + " €";
 	}
-	
-	public static Geldbetrag neuerGeldbetrag(String formatierterString)
-	{
-		Pattern rePattern = Pattern.compile("/^(€\\w*)?(\\d+)(,(\\d+))?(\\w*€)?$/");
-		Matcher matcher = rePattern.matcher(formatierterString);
-		
-		if (!matcher.find())
-			throw new InvalidParameterException("Es wurde kein gültiger Geldbetrag eingegeben");
-		
-		int euro = Integer.parseInt(matcher.group(1));
-		int cent = Integer.parseInt(matcher.group(3));
-		
-		return neuerGeldbetrag(euro, cent);
-	}
-	
 }
