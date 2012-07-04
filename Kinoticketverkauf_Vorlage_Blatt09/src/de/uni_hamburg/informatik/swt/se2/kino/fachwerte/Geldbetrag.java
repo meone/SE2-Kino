@@ -144,7 +144,7 @@ public final class Geldbetrag {
 	 * @return
 	 * 		Formatierter String, der den Betrag repräsentiert.
 	 */
-	public String formatiere()
+	public String getFormatiertenString()
 	{
 		if (getCent() < 10)
 			return getEuro() + ",0" + getCent() + " €";
@@ -174,6 +174,6 @@ public final class Geldbetrag {
     @Override
     public String toString()
     {
-        return formatiere();
+        return getFormatiertenString();
     }
 }
