@@ -24,7 +24,7 @@ import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.BeobachtbaresSubWerkzeug
  * wenn ein Kartenverkauf stattgefunden hat. 
  * 
  * @author Markus Fasselt, Julia Foerster, Annika Meinecke, Konstantin Moellers
- *@version 24.06.2012
+ * @version 24.06.2012
  */
 public class BezahlWerkzeug extends BeobachtbaresSubWerkzeug
 {
