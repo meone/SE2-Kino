@@ -22,6 +22,8 @@ public class Vorstellung
     private Uhrzeit _anfangszeit;
     private Uhrzeit _endzeit;
     private Datum _datum;
+    
+    // @TODO durch Geldbetrag ersetzen
     private int _preis;
     private boolean[][] _verkauft;
     private int _anzahlVerkauftePlaetze;

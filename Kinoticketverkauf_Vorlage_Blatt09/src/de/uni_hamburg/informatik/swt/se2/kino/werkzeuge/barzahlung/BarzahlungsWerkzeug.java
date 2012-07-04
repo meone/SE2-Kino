@@ -32,6 +32,8 @@ public class BarzahlungsWerkzeug extends BeobachtbaresSubWerkzeug
 {
 
     private BarzahlungsWerkzeugUI _ui;
+    
+    // TODO: Geldbetrag verwenden
     private int _preis;
     private boolean _barzahlungErfolgreich;
 
@@ -52,6 +54,7 @@ public class BarzahlungsWerkzeug extends BeobachtbaresSubWerkzeug
      */
     public void fuehreBarzahlungDurch(int preis)
     {
+    	// TODO: Geldbetrag verwenden
         _preis = preis;
         setzeAnfangsstatus();
         _ui.zeigeAn();
