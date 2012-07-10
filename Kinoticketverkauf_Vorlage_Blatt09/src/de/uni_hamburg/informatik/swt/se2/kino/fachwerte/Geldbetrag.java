@@ -39,21 +39,34 @@ public final class Geldbetrag {
 	 * 		Der Euro-Anteil. Er gibt auch das Vorzeichen vor.
 	 * @param cent
 	 * 		Der Cent-Anteil. Er ist positiv.
+	 * @param signed
+	 * 		Vorzeichen des Betrags. True, falls Geldbetrag negativ.
 	 * @return
 	 * 		Ein Geldbetrag-Fachwert.
 	 * @ensure result != null
 	 */
-	public static Geldbetrag neuerGeldbetrag(int euro, int cent)
+	public static Geldbetrag neuerGeldbetrag(int euro, int cent, boolean signed)
 	{
 		int gesamtCent;
-		if (euro < 0)
-			gesamtCent = euro * 100 - Math.abs(cent);
-		else
-			gesamtCent = euro * 100 + Math.abs(cent);
+		gesamtCent = Math.abs(euro) * 100 + Math.abs(cent);
+		if (signed)
+			gesamtCent *= -1;
 			
-		if (!_werteListe.containsKey(gesamtCent))
-			_werteListe.put(gesamtCent, new Geldbetrag(gesamtCent));
-		return _werteListe.get(gesamtCent);
+		return neuerGeldbetrag(gesamtCent);
+	}
+	
+	/**
+	 * Erstellt einen neuen Geldbetrag.
+	 * 
+	 * @param eurocent
+	 * 		Der Gesamtbetrag in Cent.
+	 * @ensure result != null
+	 */
+	public static Geldbetrag neuerGeldbetrag(int eurocent)
+	{
+		if (!_werteListe.containsKey(eurocent))
+			_werteListe.put(eurocent, new Geldbetrag(eurocent));
+		return _werteListe.get(eurocent);
 	}
 	
 	/**
@@ -77,23 +90,39 @@ public final class Geldbetrag {
 		int euro = Integer.parseInt(matcher.group(2));
 		int cent = Integer.parseInt(matcher.group(4));
 		
-		return neuerGeldbetrag(euro, cent);
+		return neuerGeldbetrag(euro, cent, euro < 0);
 	}
 	
 	/**
-	 * Gibt vollwertige Euro an. 
+	 * Gibt den vollwertigen Eurobetrag an. 
 	 */
-	public int getEuro()
+	int getEuro()
 	{
-		return _centbetrag / 100;
+		return Math.abs(_centbetrag / 100);
 	}
 	
 	/**
 	 * Gibt den reinen Centbetrag an. 
 	 */
-	public int getCent()
+	int getCent()
 	{
 		return Math.abs(_centbetrag % 100);
+	}
+	
+	/**
+	 * Gibt zurück, ob der Betrag negativ ist.
+	 */
+	boolean getSigned()
+	{
+		return _centbetrag < 0;
+	}
+	
+	/**
+	 * Gibt den Betrag in Eurocent zurück.
+	 */
+	int getEuroCent()
+	{
+		return _centbetrag;
 	}
 	
 	/**
@@ -107,7 +136,7 @@ public final class Geldbetrag {
 	 */
 	public Geldbetrag addiereBetrag(Geldbetrag betrag)
 	{
-		return Geldbetrag.neuerGeldbetrag(getEuro() + betrag.getEuro(), getCent() + betrag.getCent());
+		return Geldbetrag.neuerGeldbetrag(getEuroCent() + betrag.getEuroCent());
 	}
 	
 	/**
@@ -121,7 +150,7 @@ public final class Geldbetrag {
 	 */
 	public Geldbetrag subtrahiereBetrag(Geldbetrag betrag)
 	{
-		return Geldbetrag.neuerGeldbetrag(getEuro() - betrag.getEuro(), getCent() - betrag.getCent());
+		return Geldbetrag.neuerGeldbetrag(getEuroCent() - betrag.getEuroCent());
 	}
 	
 	/**
@@ -135,7 +164,7 @@ public final class Geldbetrag {
 	 */
 	public Geldbetrag skaliere(int skalar)
 	{
-		return Geldbetrag.neuerGeldbetrag(getEuro() * skalar, getCent() * skalar);
+		return Geldbetrag.neuerGeldbetrag(skalar * getEuroCent());
 	}
 	
 	/**
