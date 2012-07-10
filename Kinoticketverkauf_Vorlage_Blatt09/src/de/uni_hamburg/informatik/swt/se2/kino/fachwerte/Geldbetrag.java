@@ -173,7 +173,7 @@ public final class Geldbetrag {
 	 * @return
 	 * 		Formatierter String, der den Betrag repräsentiert.
 	 */
-	public String formatiere()
+	public String getFormatiertenString()
 	{
 		return getEuro() + "," + getCent() + " €";
 	}
