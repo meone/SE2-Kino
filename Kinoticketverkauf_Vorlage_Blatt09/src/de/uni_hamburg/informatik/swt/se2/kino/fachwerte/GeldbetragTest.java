@@ -140,5 +140,17 @@ public class GeldbetragTest {
 		assertEquals(37, foo.getCent());
 		assertEquals(true, foo.getSigned());
 	}
+	
+	@Test
+	public void testeVergleiche()
+	{
+		Geldbetrag foo = Geldbetrag.neuerGeldbetrag(1337);
+		Geldbetrag bar = Geldbetrag.neuerGeldbetrag(-42);
+		
+		assertEquals(true, foo.istEchtGroesserAls(bar));
+		assertEquals(false, foo.istEchtGroesserAls(foo));
+		assertEquals(true, foo.istGroesserGleichAls(bar));
+		assertEquals(true, foo.istGroesserGleichAls(foo));
+	}
 
 }

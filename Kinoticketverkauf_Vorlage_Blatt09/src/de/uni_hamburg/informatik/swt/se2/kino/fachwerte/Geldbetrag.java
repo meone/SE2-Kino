@@ -1,6 +1,5 @@
 package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
-import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,6 +22,11 @@ public final class Geldbetrag {
 	 * Liste aller auftretenden Geldbeträge.
 	 */
 	private static HashMap<Integer, Geldbetrag> _werteListe = new HashMap<Integer, Geldbetrag>();
+	
+	/**
+	 * Pattern zum Prüfen von Geldbeträgen.
+	 */
+	private static Pattern _pattern = Pattern.compile("^(€\\s*)?([+\\-]?\\s*\\d+)(,(\\d+))?(\\s*€)?$");
 	
 	/**
 	 * Erstellt einen Fachwert.
@@ -77,15 +81,15 @@ public final class Geldbetrag {
 	 * 		Ende stehen. Ein Vorzeichen ist möglich.
 	 * @return
 	 * 		Ein Fachwert für den Betrag.
+	 * 
+	 * @require istGueltigerGeldbetrag(formatierterString)
 	 * @ensure result != null
 	 */
 	public static Geldbetrag neuerGeldbetrag(String formatierterString)
 	{
-		Pattern rePattern = Pattern.compile("^(€\\s*)?([+\\-]?\\s*\\d+)(,(\\d+))?(\\s*€)?$");
-		Matcher matcher = rePattern.matcher(formatierterString);
-		
-		if (!matcher.find())
-			throw new InvalidParameterException("Es wurde kein gültiger Geldbetrag eingegeben");
+		assert istGueltigerGeldbetrag(formatierterString) : "Vorbedingung verletzt: istGueltigerGeldbetrag(formatierterString)";
+		Matcher matcher = _pattern.matcher(formatierterString);
+		matcher.find();
 		
 		int euro = Integer.parseInt(matcher.group(2));
 		int cent = Integer.parseInt(matcher.group(4));
@@ -179,6 +183,67 @@ public final class Geldbetrag {
 			return (getSigned() ? "-" : "") + getEuro() + ",0" + getCent() + " €";
 		else
 			return (getSigned() ? "-" : "") + getEuro() + "," + getCent() + " €";
+	}
+	
+	/**
+	 * Prüft einen String darauf, ob er einen gültigen Geldbetrag repräsentiert.
+	 * 
+	 * @param subjekt
+	 * 		Der zu prüfende String.
+	 * @return
+	 */
+	public static boolean istGueltigerGeldbetrag(String subjekt)
+	{
+		Matcher matcher = _pattern.matcher(subjekt);
+		return matcher.find();
+	}
+	
+	/**
+	 * Prüft, ob ein Geldbetrag kleiner ist als ein anderer.
+	 * 
+	 * @param subjekt
+	 * @return
+	 */
+	public boolean istEchtKleinerAls(Geldbetrag subjekt)
+	{
+		Geldbetrag differenz = subtrahiereBetrag(subjekt);
+		return differenz.getSigned() && differenz != Geldbetrag.neuerGeldbetrag(0);
+	}
+	
+	/**
+	 * Prüft, ob ein Geldbetrag größer ist als ein anderer.
+	 * 
+	 * @param subjekt
+	 * @return
+	 */
+	public boolean istEchtGroesserAls(Geldbetrag subjekt)
+	{
+		Geldbetrag differenz = subtrahiereBetrag(subjekt);
+		return !differenz.getSigned() && differenz != Geldbetrag.neuerGeldbetrag(0);
+	}
+	
+	/**
+	 * Prüft, ob ein Geldbetrag kleiner gleich ist als ein anderer.
+	 * 
+	 * @param subjekt
+	 * @return
+	 */
+	public boolean istKleinerGleichAls(Geldbetrag subjekt)
+	{
+		Geldbetrag differenz = subtrahiereBetrag(subjekt);
+		return differenz.getSigned();
+	}
+	
+	/**
+	 * Prüft, ob ein Geldbetrag größer gleich ist als ein anderer.
+	 * 
+	 * @param subjekt
+	 * @return
+	 */
+	public boolean istGroesserGleichAls(Geldbetrag subjekt)
+	{
+		Geldbetrag differenz = subtrahiereBetrag(subjekt);
+		return !differenz.getSigned();
 	}
 	
 	@Override
