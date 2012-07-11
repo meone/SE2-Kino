@@ -176,9 +176,9 @@ public final class Geldbetrag {
 	public String getFormatiertenString()
 	{
 		if (getCent() < 10)
-			return (getSigned() ? "- " : "") + getEuro() + ",0" + getCent() + " €";
+			return (getSigned() ? "-" : "") + getEuro() + ",0" + getCent() + " €";
 		else
-			return (getSigned() ? "- " : "") + getEuro() + "," + getCent() + " €";
+			return (getSigned() ? "-" : "") + getEuro() + "," + getCent() + " €";
 	}
 	
 	@Override

@@ -112,10 +112,10 @@ public class GeldbetragTest {
 	@Test
 	public void testeFormatierung()
 	{
-		Geldbetrag foo = Geldbetrag.neuerGeldbetrag(1234, 12);
-		assertEquals("1234,12 €", foo.getFormatiertenString());
+		Geldbetrag foo = Geldbetrag.neuerGeldbetrag(-123412);
+		assertEquals("-1234,12 €", foo.getFormatiertenString());
 		
-		foo = Geldbetrag.neuerGeldbetrag(1234, 2);
+		foo = Geldbetrag.neuerGeldbetrag(1234, 2, false);
 		assertEquals("1234,02 €", foo.getFormatiertenString());
 	}
 	
