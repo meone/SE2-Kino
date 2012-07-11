@@ -141,10 +141,28 @@ public final class Geldbetrag {
 	 * @return
 	 * 		Das Ergebnis.
 	 * @ensure result != null
+	 * 
+	 * @require istAddierenMoeglich(betrag)
 	 */
 	public Geldbetrag addiereBetrag(Geldbetrag betrag)
 	{
+		assert istAddierenMoeglich(betrag) : "Vorbedingung verletzt: istAddierenMoeglich(betrag)";
+		 
 		return Geldbetrag.neuerGeldbetrag(getEuroCent() + betrag.getEuroCent());
+	}
+	
+	/**
+	 * Prüft, ob das Addieren eines Betrags möglich ist.
+	 * 
+	 * @param betrag
+	 * 		Der zu addierende Betrag.
+	 * @return
+	 * 		Das Ergebnis der Prüfung.
+	 */
+	public boolean istAddierenMoeglich(Geldbetrag betrag)
+	{
+		return ((long) getEuroCent() + betrag.getEuroCent() < Integer.MAX_VALUE) 
+				&& ((long) getEuroCent() + betrag.getEuroCent() > Integer.MIN_VALUE); 
 	}
 	
 	/**
@@ -154,11 +172,29 @@ public final class Geldbetrag {
 	 * 		Der abzuziehende Betrag.
 	 * @return
 	 * 		Das Ergebnis.
+	 * 
+	 * @require istSubtrahierenMoeglich(betrag)
 	 * @ensure result != null
 	 */
 	public Geldbetrag subtrahiereBetrag(Geldbetrag betrag)
 	{
+		assert istSubtrahierenMoeglich(betrag) : "Vorbedingung verletzt: istSubtrahierenMoeglich(betrag)";
+		
 		return Geldbetrag.neuerGeldbetrag(getEuroCent() - betrag.getEuroCent());
+	}
+
+	/**
+	 * Prüft, ob das Subtrahieren eines Betrags möglich ist.
+	 * 
+	 * @param betrag
+	 * 		Der zu subtrahierende Betrag.
+	 * @return
+	 * 		Das Ergebnis der Prüfung.
+	 */
+	public boolean istSubtrahierenMoeglich(Geldbetrag betrag)
+	{
+		return ((long) getEuroCent() - betrag.getEuroCent() < Integer.MAX_VALUE) 
+				&& ((long) getEuroCent() - betrag.getEuroCent() > Integer.MIN_VALUE); 
 	}
 	
 	/**
@@ -168,11 +204,29 @@ public final class Geldbetrag {
 	 * 		Der Skalar, mit dem Multipliziert wird.
 	 * @return
 	 * 		Das Ergebnis.
+	 * 
+	 * @require istSkalierenMoeglich(skalar)
 	 * @ensure result != null
 	 */
 	public Geldbetrag skaliere(int skalar)
 	{
+		assert istSkalierenMoeglich(skalar) : "Vorbedingung verletzt: istSkalierenMoeglich(skalar)";
+		
 		return Geldbetrag.neuerGeldbetrag(skalar * getEuroCent());
+	}
+
+	/**
+	 * Prüft, ob das Skalieren eines Betrags möglich ist.
+	 * 
+	 * @param skalar
+	 * 		Der Faktor, um den skaliert wird.
+	 * @return
+	 * 		Das Ergebnis der Prüfung.
+	 */
+	public boolean istSkalierenMoeglich(int skalar)
+	{
+		return ((long) getEuroCent() * skalar < Integer.MAX_VALUE) 
+				&& ((long) getEuroCent() * skalar > Integer.MIN_VALUE); 
 	}
 	
 	/**
