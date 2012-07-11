@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Datum;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.FSK;
+import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Platz;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Uhrzeit;
 
@@ -37,6 +38,9 @@ public class KinoTest
 
     private Datum _d1;
 
+    private Geldbetrag _p1; 
+    private Geldbetrag _p2;
+    
     private Vorstellung _vorstellungSaal1Film0;
     private Vorstellung _vorstellungSaal2Film1;
     private Vorstellung _vorstellungSaal2Film2a;
@@ -70,14 +74,16 @@ public class KinoTest
 
         _d1 = new Datum(11, 07, 2008);
 
+        _p1 = Geldbetrag.neuerGeldbetrag(900);
+        _p2 = Geldbetrag.neuerGeldbetrag(1000);
         _vorstellungSaal1Film0 = new Vorstellung(_saal1, _film0, _u1, _u2, _d1,
-                900);
+                _p1);
         _vorstellungSaal2Film1 = new Vorstellung(_saal2, _film1, _u1, _u2, _d1,
-                1000);
+                _p2);
         _vorstellungSaal2Film2a = new Vorstellung(_saal2, _film2, _u2, _u3,
-                _d1, 900);
+                _d1, _p1);
         _vorstellungSaal2Film2b = new Vorstellung(_saal2, _film2, _u3, _u4,
-                _d1, 900);
+                _d1, _p1);
 
         _alleVorstellungen = new Vorstellung[] { _vorstellungSaal1Film0,
                 _vorstellungSaal2Film1, _vorstellungSaal2Film2a,

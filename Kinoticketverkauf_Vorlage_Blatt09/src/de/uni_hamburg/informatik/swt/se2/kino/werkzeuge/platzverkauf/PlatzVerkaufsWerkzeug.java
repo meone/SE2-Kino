@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
+import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Platz;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Kinosaal;
 import de.uni_hamburg.informatik.swt.se2.kino.materialien.Vorstellung;
@@ -26,7 +27,7 @@ import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.barzahlung.BarzahlungsWe
 public class PlatzVerkaufsWerkzeug
 {
 	// TODO: Geldbetrag verwenden
-    private int _ausgewaehlterGesamtbetrag;
+    private Geldbetrag _ausgewaehlterGesamtbetrag;
     // Die aktuelle Vorstellung, deren Plätze angezeigt werden. Kann null sein.
     private Vorstellung _vorstellung;
 
@@ -154,7 +155,7 @@ public class PlatzVerkaufsWerkzeug
         if (istVerkaufenMoeglich(plaetze))
         {
         	// TODO: Geldbetrag verwenden
-            int preis = _vorstellung.getPreisFuerPlaetze(plaetze);
+            Geldbetrag preis = _vorstellung.getPreisFuerPlaetze(plaetze);
             _ui.getPreisLabel().setText("Gesamtpreis: " + preis + " Eurocent");
             _ausgewaehlterGesamtbetrag = preis;
         }

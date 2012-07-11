@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.BeobachtbaresSubWerkzeug;
 
 /**
@@ -34,7 +35,7 @@ public class BarzahlungsWerkzeug extends BeobachtbaresSubWerkzeug
     private BarzahlungsWerkzeugUI _ui;
     
     // TODO: Geldbetrag verwenden
-    private int _preis;
+    private Geldbetrag _preis;
     private boolean _barzahlungErfolgreich;
 
     /**
@@ -52,7 +53,7 @@ public class BarzahlungsWerkzeug extends BeobachtbaresSubWerkzeug
      * Startet den Barzahlungsvorgang. Die UI wird angezeigt. Der Programmfluss
      * kehrt erst nach dem Beenden des Bezahlvorgangs an den Aufrufer zurück.
      */
-    public void fuehreBarzahlungDurch(int preis)
+    public void fuehreBarzahlungDurch(Geldbetrag preis)
     {
     	// TODO: Geldbetrag verwenden
         _preis = preis;
@@ -182,7 +183,7 @@ public class BarzahlungsWerkzeug extends BeobachtbaresSubWerkzeug
         setzeFehlermarkierung(false);
         setzePreis();
         loescheGegebenbetrag();
-        int eingabeBetrag = 0;
+        Geldbetrag eingabeBetrag = 0;
         setzeRestbetrag(eingabeBetrag);
         setzeOKButtonStatus(eingabeBetrag);
     }
@@ -260,7 +261,7 @@ public class BarzahlungsWerkzeug extends BeobachtbaresSubWerkzeug
      * 
      * @param eingabeBetrag Ein eingegebener Betrag.
      */
-    private void setzeOKButtonStatus(int eingabeBetrag)
+    private void setzeOKButtonStatus(Geldbetrag eingabeBetrag)
     {
         if (eingabeBetrag >= _preis)
         {
@@ -279,9 +280,9 @@ public class BarzahlungsWerkzeug extends BeobachtbaresSubWerkzeug
      * 
      * @param eingabeBetrag ein eingegebener Betrag
      */
-    private void setzeRestbetrag(int eingabeBetrag)
+    private void setzeRestbetrag(Geldbetrag eingabeBetrag)
     {
-        int differenz = eingabeBetrag - _preis;
+        Geldbetrag differenz = eingabeBetrag - _preis;
         _ui.getRestTextfeld().setText("" + differenz);
         if (eingabeBetrag < _preis)
         {
