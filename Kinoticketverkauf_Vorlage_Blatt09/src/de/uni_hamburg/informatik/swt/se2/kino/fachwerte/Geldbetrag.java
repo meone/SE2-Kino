@@ -26,7 +26,7 @@ public final class Geldbetrag {
 	/**
 	 * Pattern zum Prüfen von Geldbeträgen.
 	 */
-	private static Pattern _pattern = Pattern.compile("^(€\\s*)?([+\\-]?\\s*\\d+)(,(\\d+))?(\\s*€)?$");
+	private static Pattern _pattern = Pattern.compile("^(€\\s*)?([+\\-]?\\s*\\d+)(,(\\d{2}))?(\\s*€)?$");
 	
 	/**
 	 * Erstellt einen Fachwert.

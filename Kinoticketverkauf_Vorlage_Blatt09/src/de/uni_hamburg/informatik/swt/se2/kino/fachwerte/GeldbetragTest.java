@@ -1,6 +1,7 @@
 package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
@@ -127,6 +128,8 @@ public class GeldbetragTest {
 		assertEquals(2400, foo.getEuro());
 		assertEquals(42, foo.getCent());
 		assertEquals(false, foo.getSigned());
+		
+		assertFalse(Geldbetrag.istGueltigerGeldbetrag("€ 200,1"));
 		
 		foo = Geldbetrag.neuerGeldbetrag("+13,37");
 		
