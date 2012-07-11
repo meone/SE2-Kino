@@ -161,8 +161,8 @@ public final class Geldbetrag {
 	 */
 	public boolean istAddierenMoeglich(Geldbetrag betrag)
 	{
-		return ((long) getEuroCent() + betrag.getEuroCent() < Integer.MAX_VALUE) 
-				&& ((long) getEuroCent() + betrag.getEuroCent() > Integer.MIN_VALUE); 
+		return ((long) getEuroCent() + betrag.getEuroCent() <= Integer.MAX_VALUE) 
+				&& ((long) getEuroCent() + betrag.getEuroCent() >= Integer.MIN_VALUE); 
 	}
 	
 	/**
@@ -193,8 +193,8 @@ public final class Geldbetrag {
 	 */
 	public boolean istSubtrahierenMoeglich(Geldbetrag betrag)
 	{
-		return ((long) getEuroCent() - betrag.getEuroCent() < Integer.MAX_VALUE) 
-				&& ((long) getEuroCent() - betrag.getEuroCent() > Integer.MIN_VALUE); 
+		return ((long) getEuroCent() - betrag.getEuroCent() <= Integer.MAX_VALUE) 
+				&& ((long) getEuroCent() - betrag.getEuroCent() >= Integer.MIN_VALUE); 
 	}
 	
 	/**
@@ -225,8 +225,8 @@ public final class Geldbetrag {
 	 */
 	public boolean istSkalierenMoeglich(int skalar)
 	{
-		return ((long) getEuroCent() * skalar < Integer.MAX_VALUE) 
-				&& ((long) getEuroCent() * skalar > Integer.MIN_VALUE); 
+		return ((long) getEuroCent() * skalar <= Integer.MAX_VALUE) 
+				&& ((long) getEuroCent() * skalar >= Integer.MIN_VALUE); 
 	}
 	
 	/**
@@ -253,7 +253,12 @@ public final class Geldbetrag {
 	public static boolean istGueltigerGeldbetrag(String subjekt)
 	{
 		Matcher matcher = _pattern.matcher(subjekt);
-		return matcher.find();
+		if (matcher.find())
+		{
+			long euro = Long.parseLong(matcher.group(2));
+			return (euro >= Integer.MIN_VALUE && euro <= Integer.MAX_VALUE); 
+		}
+		else return false;
 	}
 	
 	/**
