@@ -155,5 +155,16 @@ public class GeldbetragTest {
 		assertEquals(true, foo.istGroesserGleichAls(bar));
 		assertEquals(true, foo.istGroesserGleichAls(foo));
 	}
+	
+	@Test
+	public void testeGrenzenpruefung()
+	{
+		Geldbetrag foo = Geldbetrag.neuerGeldbetrag(Integer.MAX_VALUE);
+		Geldbetrag bar = Geldbetrag.neuerGeldbetrag(Integer.MIN_VALUE);
+		
+		assertFalse(foo.istAddierenMoeglich(foo));
+		assertFalse(foo.istSubtrahierenMoeglich(bar));
+		assertFalse(foo.istSkalierenMoeglich(123456789));
+	}
 
 }
