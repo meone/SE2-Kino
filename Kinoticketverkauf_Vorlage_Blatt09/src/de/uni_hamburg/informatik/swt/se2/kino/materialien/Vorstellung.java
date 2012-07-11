@@ -73,6 +73,12 @@ public class Vorstellung
                 .getAnzahlSitzeProReihe()];
         _anzahlVerkauftePlaetze = 0;
     }
+    
+    public Vorstellung(Kinosaal kinosaal, Film film, Uhrzeit anfangszeit,
+            Uhrzeit endzeit, Datum datum, int preisInt)
+    {
+        this(kinosaal, film, anfangszeit, endzeit, datum, Geldbetrag.neuerGeldbetrag(preisInt) );
+    }
 
     /**
      * Gibt den Kinosaal zurück, in dem diese Vorstellung läuft.

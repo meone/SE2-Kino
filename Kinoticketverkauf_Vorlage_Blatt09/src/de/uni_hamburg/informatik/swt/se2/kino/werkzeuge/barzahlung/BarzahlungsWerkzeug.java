@@ -146,12 +146,14 @@ public class BarzahlungsWerkzeug extends BeobachtbaresSubWerkzeug
     private void reagiereAufEingabe(KeyEvent e)
     {
         String eingabe = _ui.getGegebenTextfeld().getText();
-        setzeNeuenStatus(eingabe);
-        int key = e.getKeyCode();
-        if (_ui.getGeldErhaltenButton().isEnabled() && key == KeyEvent.VK_ENTER)
-        {
-            bezahlenErfolgreich();
-        }
+
+            setzeNeuenStatus(eingabe);
+            int key = e.getKeyCode();
+            if (_ui.getGeldErhaltenButton().isEnabled() && key == KeyEvent.VK_ENTER)
+            {
+                bezahlenErfolgreich();
+            }
+        
     }
 
     /**
@@ -183,7 +185,7 @@ public class BarzahlungsWerkzeug extends BeobachtbaresSubWerkzeug
         setzeFehlermarkierung(false);
         setzePreis();
         loescheGegebenbetrag();
-        Geldbetrag eingabeBetrag = 0;
+        Geldbetrag eingabeBetrag = Geldbetrag.neuerGeldbetrag(0);
         setzeRestbetrag(eingabeBetrag);
         setzeOKButtonStatus(eingabeBetrag);
     }
@@ -204,7 +206,7 @@ public class BarzahlungsWerkzeug extends BeobachtbaresSubWerkzeug
         if (istGueltig(eingabe))
         {
             setzeFehlermarkierung(false);
-            int eingabeBetrag = Integer.valueOf(eingabe);
+            Geldbetrag eingabeBetrag = Geldbetrag.neuerGeldbetrag(eingabe);
             setzeRestbetrag(eingabeBetrag);
             setzeOKButtonStatus(eingabeBetrag);
         }
@@ -229,12 +231,8 @@ public class BarzahlungsWerkzeug extends BeobachtbaresSubWerkzeug
     public boolean istGueltig(String eingabe)
     {
         assert eingabe != null : "Vorbedingung verletzt: eingabe != null";
-        boolean result = eingabe.matches("-?[0-9]{1,10}");
-        if (result)
-        {
-            long betrag = Long.valueOf(eingabe);
-            result = ((Integer.MIN_VALUE <= betrag) && (betrag <= Integer.MAX_VALUE));
-        }
+        boolean result = Geldbetrag.istGueltigerGeldbetrag(eingabe);
+
         return result;
     }
 
@@ -263,7 +261,7 @@ public class BarzahlungsWerkzeug extends BeobachtbaresSubWerkzeug
      */
     private void setzeOKButtonStatus(Geldbetrag eingabeBetrag)
     {
-        if (eingabeBetrag >= _preis)
+        if (eingabeBetrag.istGroesserGleichAls(_preis))
         {
             _ui.getGeldErhaltenButton().setEnabled(true);
         }
@@ -282,9 +280,9 @@ public class BarzahlungsWerkzeug extends BeobachtbaresSubWerkzeug
      */
     private void setzeRestbetrag(Geldbetrag eingabeBetrag)
     {
-        Geldbetrag differenz = eingabeBetrag - _preis;
+        Geldbetrag differenz = eingabeBetrag.subtrahiereBetrag(_preis);
         _ui.getRestTextfeld().setText("" + differenz);
-        if (eingabeBetrag < _preis)
+        if (eingabeBetrag.istEchtKleinerAls(_preis))
         {
             _ui.markiereRestTextfeld(true);
         }

@@ -92,7 +92,11 @@ public final class Geldbetrag {
 		matcher.find();
 		
 		int euro = Integer.parseInt(matcher.group(2));
-		int cent = Integer.parseInt(matcher.group(4));
+		
+		String stringCent = matcher.group(4);
+		int cent = 0;
+		if(stringCent != null)
+		    cent = Integer.parseInt(stringCent);
 		
 		return neuerGeldbetrag(euro, cent, euro < 0);
 	}
